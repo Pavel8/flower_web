@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Produktový seznam</h1>
+<a href="{% url 'product_create' %}">Přidat další</a>
+
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'product_detail' product.pk %}">{{ product.title }}</a>
+            <a href="{% url 'product_delete' product.pk %}">Smazat</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

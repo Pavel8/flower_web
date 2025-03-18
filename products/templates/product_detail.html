@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Detail produktu</h1>
+
+<a href="{% url 'product_update' product.pk %}">Edit</a>
+
+<h3>Produkt: {{ product }}</h3>
+<h3>Název: {{ product.title }}</h3>
+<h4>Typ: {{ product.type }}</h4>
+<h4>Stav: {{ product.alive|yesno:"Živé,Umělé" }}</h4>
+
+{% if product.occasion.all %}
+    <h4>Využití:</h4>
+    <ul>
+      {% for occ in product.occasion.all %}
+          <li>{{ occ }}</li>
+      {% endfor %}
+    </ul>
+{% else %}
+    <p>Žádné přiřazené využití.</p>
+{% endif %}
+
+{% endblock %}

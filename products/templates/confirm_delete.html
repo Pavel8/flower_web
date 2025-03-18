@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Potvrzení smazání</h1>
+
+<p>Jste si jist, že chcete vymazat tento produkt?<strong>{{ object.title }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Ano, smazat!</button>
+  <a href="{% url 'book_list' %}">Vrátit se</a>
+</form>
+
+{% endblock %}
