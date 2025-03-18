@@ -9,7 +9,7 @@ from .forms import ProductForm
 
 class ProductListView(ListView):
 	model = Product
-
+	products = Product.objects.all()
 	template_name = 'product_list.html'
 	context_object_name = 'products'
 
@@ -23,8 +23,6 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
 		model = Product
-
-		#fields = ['title', 'type']
 		form_class = ProductForm
 		template_name = 'product_form.html'
 		success_url = reverse_lazy('product_list')

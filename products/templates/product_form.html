@@ -1,12 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Formulář produtu</h1>
+<h1>Formulář produktu</h1>
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-	<button type="submit">Odeslat</button>
+
+    <div>
+        <label for="{{ form.title.id_for_label }}">Název:</label>
+        {{ form.title }}
+    </div>
+
+    <div>
+        <label for="{{ form.type.id_for_label }}">Typ:</label>
+        {{ form.type }}
+    </div>
+
+    <div>
+        <label for="{{ form.occasion.id_for_label }}">Příležitosti:</label>
+        {{ form.occasion }}
+    </div>
+
+    <div>
+        <label for="{{ form.alive.id_for_label }}">Stav:</label>
+        {{ form.alive }}
+    </div>
+
+    <button type="submit">Odeslat</button>
 </form>
 
 {% endblock %}
