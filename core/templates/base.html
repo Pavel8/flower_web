@@ -20,6 +20,10 @@
     </style>
 </head>
 <body>
+.logo {
+    height: 60px; /* Nastav výšku loga */
+    width: auto; /* Zachová proporce */
+}
 
     <!-- Hlavička, která bude zahrnuta na všech stránkách -->
     {% include "header.html" %}
@@ -28,3 +32,4 @@
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+</body>

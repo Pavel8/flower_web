@@ -1,20 +1,21 @@
 from django import forms
 from .models import Product, Occasion, Alive
 
-
 class ProductForm(forms.ModelForm):
-    # Změna pro správné zobrazení "ManyToManyField"
+    # Změna: Explicitní nastavení zobrazení pro ManyToManyField "occasion"
     occasion = forms.ModelMultipleChoiceField(
-        queryset=Occasion.objects.all(),  # Vyber všechny existující příležitosti
-        widget=forms.CheckboxSelectMultiple,  # Můžeš použít i jiný widget, např. SelectMultiple
-        required=False,  # Pokud je to volitelné
+        queryset=Occasion.objects.all(),  # Vybere všechny existující příležitosti
+        widget=forms.CheckboxSelectMultiple,  # Zobrazí jako checkboxy (můžeš změnit widget dle potřeby)
+        required=False,  # Pole není povinné
     )
 
+    # Změna: Explicitní nastavení zobrazení pro ForeignKey "alive"
     alive = forms.ModelChoiceField(
         queryset=Alive.objects.all(),
-        widget=forms.RadioSelect,  # Tohle vykreslí radio buttony
-        required=False,  # Pokud to není povinné
+        widget=forms.RadioSelect,  # Zobrazí jako radio buttony
+        required=False,  # Pole není povinné
     )
+
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = "__all__"  # Zde lze také explicitně vypsat pouze požadovaná pole

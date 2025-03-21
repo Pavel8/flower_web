@@ -1,16 +1,53 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>Produktový seznam</h1>
-<a href="{% url 'product_create' %}">Přidat další</a>
+    <h1>Nabízené produkty</h1>
 
-<ul>
-    {% for product in products %}
-        <li>
-            <a href="{% url 'product_detail' product.pk %}">{{ product.title }}</a>
-            <a href="{% url 'product_delete' product.pk %}">Smazat</a>
-        </li>
-    {% endfor %}
-</ul>
+    <!-- FILTRY -->
+    <div class="filters mb-4">
+        <h3>Filtrovat podle příležitosti</h3>
+        {% for occasion in occasions %}
+            <a href="?occasion={{ occasion.id }}" class="btn btn-primary">{{ occasion.name }}</a>
+        {% endfor %}
+    </div>
 
+    <div class="filters mb-4">
+        <h3>Filtrovat podle typu</h3>
+        {% for type in types %}
+            <a href="?type={{ type.id }}" class="btn btn-secondary">{{ type.name }}</a>
+        {% endfor %}
+    </div>
+
+    <!-- SEZNAM PRODUKTŮ -->
+    <div class="product-list row">
+        {% for product in products %}
+            <div class="product-card col-md-4 mb-4">
+                <!-- Změna: Zobrazení hlavního obrázku produktu, pokud existuje -->
+                {% if product.main_image %}
+                    <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="img-fluid mb-2">
+                {% endif %}
+                <h3>{{ product.title }}</h3>
+                <!-- Změna: Zobrazení jména typu, pokud je nastaven -->
+                <p>Typ: {{ product.type.name }}</p>
+                <!-- Změna: Přidání zobrazení ceny -->
+                <p>Cena: {{ product.price }} Kč</p>
+                <!-- Změna: Zobrazení slevy, pokud existuje -->
+                {% if product.discount %}
+                    <p>Sleva: {{ product.discount }}%</p>
+                {% endif %}
+                <!-- Změna: Zobrazení příležitostí jako odznaky -->
+                <p>Příležitosti:
+                    {% for occ in product.occasion.all %}
+                        <span class="badge bg-info text-dark">{{ occ.name }}</span>
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </p>
+                <!-- Změna: Přidán odkaz na detail produktu -->
+                <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary">Detail produktu</a>
+            </div>
+        {% empty %}
+            <p>Žádné produkty nenalezeny.</p>
+        {% endfor %}
+    </div>
 {% endblock %}
