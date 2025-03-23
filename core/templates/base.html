@@ -4,32 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FloDeko{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f5f1; /* Jemné zelené pozadí */
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
 
-        .container {
-            padding-top: 50px; /* Vycentrování obsahu */
-        }
-    </style>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <!-- Vlastní styly -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 </head>
 <body>
-.logo {
-    height: 60px; /* Nastav výšku loga */
-    width: auto; /* Zachová proporce */
-}
 
-    <!-- Hlavička, která bude zahrnuta na všech stránkách -->
+    <!-- Hlavička -->
     {% include "header.html" %}
 
-    <!-- Hlavní obsah stránky, který bude specifický pro každou stránku -->
+    <!-- Hlavní obsah -->
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Bootstrap JS (volitelně, pokud použiješ interaktivní prvky) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 </body>
+</html>

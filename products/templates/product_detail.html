@@ -1,24 +1,79 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>Detail produktu</h1>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Hlavní obrázek a galerie -->
+        <div class="col-md-6">
+            {% if product.main_image %}
+                <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="img-fluid main-product-image mb-3">
+            {% endif %}
 
-<a href="{% url 'product_update' product.pk %}">Edit</a>
+            <div class="image-gallery d-flex">
+                {% for image in product.additional_images.all %}
+                    {% if image %}
+                        <img src="{{ image.url }}" class="img-thumbnail me-2 small-product-image" alt="Další obrázek">
+                    {% endif %}
+                {% empty %}
+                    <p>Žádné další obrázky.</p>
+                {% endfor %}
+            </div>
+        </div>
 
-<h3>Produkt: {{ product }}</h3>
-<h3>Název: {{ product.title }}</h3>
-<h4>Typ: {{ product.type }}</h4>
-<h4>Stav: {{ product.alive|yesno:"Živé,Umělé" }}</h4>
+        <!-- Informace o produktu -->
+        <div class="col-md-6">
+            <h1 class="product-title">{{ product.title }}</h1>
+            <p class="text-muted">{{ product.short_description }}</p>
 
-{% if product.occasion.all %}
-    <h4>Využití:</h4>
-    <ul>
-      {% for occ in product.occasion.all %}
-          <li>{{ occ }}</li>
-      {% endfor %}
-    </ul>
-{% else %}
-    <p>Žádné přiřazené využití.</p>
-{% endif %}
+            <p class="product-price">
+                Cena:
+                {% if product.discount %}
+                    <span class="text-muted text-decoration-line-through">{{ product.price }} Kč</span>
+                    <span class="text-danger fw-bold">{{ product.discounted_price }} Kč</span>
+                {% else %}
+                    <span class="fw-bold">{{ product.price }} Kč</span>
+                {% endif %}
+            </p>
 
+            <p>
+                Dostupnost:
+                {% if product.stock_status %}
+                    <span class="badge bg-success">Skladem</span>
+                {% else %}
+                    <span class="badge bg-danger">Není skladem</span>
+                {% endif %}
+            </p>
+
+            {% if product.alive %}
+                <p>Typ květiny: <strong>{{ product.alive }}</strong></p>
+            {% endif %}
+
+            <p>Typ: <strong>{{ product.type.name }}</strong></p>
+
+            <p>
+                Příležitosti:
+                {% for occ in product.occasion.all %}
+                    <span class="badge bg-info text-dark">{{ occ.name }}</span>
+                {% empty %}
+                    <span class="text-muted">Nezařazeno</span>
+                {% endfor %}
+            </p>
+
+            <p>
+                Barva:
+                <span class="color-badge" style="background-color: {{ product.color }};"></span>
+            </p>
+
+            <button class="btn btn-primary mt-3">Přidat do košíku</button>
+        </div>
+    </div>
+
+    <!-- Detailní popis -->
+    <div class="row mt-5">
+        <div class="col">
+            <h2>Popis produktu</h2>
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

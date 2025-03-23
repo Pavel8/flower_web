@@ -1,0 +1,128 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+/* Navigace */
+.navbar {
+    background-color: var(--primary-color);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--light-color) !important;
+}
+
+.nav-link:hover {
+    color: var(--secondary-color) !important;
+}
+
+/* Hlavní nadpisy */
+h1, h2, h3 {
+    color: var(--dark-color);
+}
+
+/* Tlačítka */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #6B0000;
+    border-color: #6B0000;
+}
+
+/* Karty produktů */
+.card {
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: var(--primary-color);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 20px 0;
+    text-align: center;
+}
+.logo {
+    width: 20%;
+    height: auto; /* Zachová poměr stran */
+    max-height: calc(20vw / 2);
+}
+
+.navbar .logo {
+    max-width: 150px; /* Maximální velikost */
+    height: auto;
+}
+
+/* Filtry */
+.filters .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Obrázky produktů */
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Karty produktů */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Ceny se slevou */
+.text-decoration-line-through {
+    font-size: 0.9em;
+}
+
+/* Hlavní obrázek */
+.main-product-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Náhledy doplňkových obrázků */
+.image-gallery .small-product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.image-gallery .small-product-image:hover {
+    transform: scale(1.1);
+}
+
+/* Cena */
+.product-price {
+    font-size: 1.5rem;
+}
+
+/* Barva produktu */
+.color-badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
