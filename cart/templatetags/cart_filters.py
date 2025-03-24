@@ -9,3 +9,8 @@ def multiply(value, arg):
         return float(value) * float(arg)
     except (ValueError, TypeError):
         return 0
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(int(key))  # Zajištění přístupu k hodnotě produktu pomocí id

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load cart_filters %}
 
-
 {% block content %}
 <div class="container mt-4">
     <h1 class="text-center">Dokončení objednávky</h1>
@@ -19,29 +18,42 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in cart.items.all %}
-                <tr>
-                    <td>{{ item.product.title }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price }} Kč</td>
-                    <td>{{ item.product.price|multiply:item.quantity }} Kč</td>
-                </tr>
+                {% for product_id, quantity in cart.items %}
+                    {% with product=products_dict|get_item:product_id %}
+                        <tr>
+                            <td>{{ product.title }}</td>
+                            <td>{{ quantity }}</td>
+                            <td>{{ product.price }} Kč</td>
+                            <td>{{ product.price|multiply:quantity }} Kč</td>
+                        </tr>
+                    {% endwith %}
                 {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">Košík je prázdný</td>
-                </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">Košík je prázdný</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         <div class="text-right">
-            <h4>Celková cena: {{ cart.total_price }} Kč</h4>
+            <h4>Celková cena:
+                {% with total_price=0 %}
+                    {% for product_id, quantity in cart.items %}
+                        {% with product=products_dict|get_item:product_id %}
+                            {% with total_price=total_price|add:product.price|multiply:quantity %}
+                            {% endwith %}
+                        {% endwith %}
+                    {% endfor %}
+                    {{ total_price }} Kč
+                {% endwith %}
+            </h4>
         </div>
     </div>
 
     <!-- Formulář pro zadání údajů o zákazníkovi -->
     <div class="customer-details mb-5">
         <h3>Údaje o zákazníkovi</h3>
-        <form method="post" action="{% url 'order_create' %}">
+        <form method="post" action="{% url 'create_order' %}">
             {% csrf_token %}
             
             <div class="mb-3">
@@ -67,11 +79,7 @@
             <h4>Způsob platby</h4>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="payment_card" name="payment_method" value="card" checked>
-                <label class="form-check-label" for="payment_card">Platba kartou</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="payment_cod" name="payment_method" value="cod">
-                <label class="form-check-label" for="payment_cod">Platba na dobírku</label>
+                <label class="form-check-label" for="payment_card">Platba převodem</label>
             </div>
 
             <button type="submit" class="btn btn-primary mt-4">Dokončit objednávku</button>
