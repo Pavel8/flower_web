@@ -4,19 +4,20 @@
 <div class="container mt-4">
     <div class="row">
         <!-- Hlavní obrázek a galerie -->
-        <div class="col-md-6">
+        <div class="card">
             {% if product.main_image %}
-                <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="img-fluid main-product-image mb-3">
+                <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="card-img-top">
             {% endif %}
+            <div class="card-body">
+                <h3 class="card-title">
+                    <a href="{% url 'product_detail' product.id %}" class="text-dark">{{ product.title }}</a>
+                </h3>
 
-            <div class="image-gallery d-flex">
-                {% for image in product.additional_images.all %}
-                    {% if image %}
-                        <img src="{{ image.url }}" class="img-thumbnail me-2 small-product-image" alt="Další obrázek">
-                    {% endif %}
-                {% empty %}
-                    <p>Žádné další obrázky.</p>
-                {% endfor %}
+                <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
+                <form method="post" action="{% url 'cart_add' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
+                </form>
             </div>
         </div>
 

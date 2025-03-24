@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load cart_filters %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Váš košík</h1>
+
+    {% if cart_items %}
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Produkt</th>
+                <th>Množství</th>
+                <th>Cena za ks</th>
+                <th>Celková cena</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        {% if item.product.main_image %}
+                            <img src="{{ item.product.main_image.url }}" alt="{{ item.product.title }}" class="img-fluid" style="width: 50px; height: 50px; object-fit: cover;">
+                        {% endif %}
+                        <span class="ms-2">{{ item.product.title }}</span>
+                    </div>
+                    <p class="text-muted">{{ item.product.short_description }}</p>
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <a href="{% url 'cart_remove_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">-</a>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <a href="{% url 'cart_add_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">+</a>
+                    </div>
+                </td>
+                <td>{{ item.product.price }} Kč</td>
+                <td>{{ item.total_price }} Kč</td>
+                <td>
+                    <a href="{% url 'cart_remove' item.product.id %}" class="btn btn-outline-danger btn-sm">Odstranit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between mt-3">
+        <h3 class="fw-bold">Celková cena: {{ total_price }} Kč</h3>
+        <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg">Přejít k pokladně</a>
+    </div>
+    {% else %}
+    <p class="text-center">Košík je prázdný</p>
+    {% endif %}
+</div>
+{% endblock %}

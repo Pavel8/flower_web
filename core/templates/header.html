@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 
 <header class="navbar navbar-expand-lg bg-primary">
   <div class="container d-flex align-items-center justify-content-between">
@@ -26,6 +27,14 @@
         </li>
       </ul>
     </div>
+
+        <!-- Odkaz na košík jako tlačítko -->
+    <a href="{% url 'cart' %}" class="btn btn-outline-light position-relative ms-3">
+      <img src="{% static 'images/shopping_cart.png' %}" alt="Košík" width="150" height="100">
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ cart.items.count }}
+      </span>
+    </a>
 
   </div>
 </header>

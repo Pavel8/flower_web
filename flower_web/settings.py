@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,6 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -139,3 +141,5 @@ import os
 # Pro mediální soubory (obrázky nahrané uživateli)
 MEDIA_URL = '/media/'  # URL, která bude použita pro přístup k souborům
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Cesta na disku, kam se soubory ukládají
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Ukládá se do DB
