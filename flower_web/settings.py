@@ -142,4 +142,7 @@ import os
 MEDIA_URL = '/media/'  # URL, která bude použita pro přístup k souborům
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Cesta na disku, kam se soubory ukládají
 
-SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Ukládá se do DB
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Ukládání do databáze
+SESSION_COOKIE_AGE = 86400  # 24 hodin
+SESSION_SAVE_EVERY_REQUEST = True  # Obnovuje session při každém requestu
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Nevyprší při zavření prohlížeče

@@ -36,12 +36,13 @@ def create_order(request):
             # Vymazat košík po objednání
             request.session['cart'] = {}
 
-            return redirect('order_detail', order_id=order.id)
+            # Přesměrovat na děkovnou stránku po úspěšné objednávce
+            return redirect('thankyou')  # Zde přesměrujeme na stránku s poděkováním
+
     else:
         form = OrderForm()
 
     return render(request, 'checkout.html', {'form': form, 'cart': cart, 'products_dict': products_dict})
-
 
 def order_list(request):
     orders = Order.objects.all().order_by('-created_at')  # Seřazení od nejnovějších
@@ -51,3 +52,6 @@ def order_list(request):
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, 'order_detail.html', {'order': order})
+
+def thankyou(request):
+    return render(request, 'thankyou.html')

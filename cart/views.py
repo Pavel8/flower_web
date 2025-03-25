@@ -120,9 +120,38 @@ def cart_view(request):
 
 
 def checkout(request):
-    # Implementace funkce pro zobrazení stránky pokladny
-    return render(request, 'checkout.html')
+    """Zobrazí obsah košíku na stránce checkout."""
+    cart = request.session.get("cart", {})
 
+    # Ujisti se, že klíče v cart jsou stringy
+    cart = {str(k): v for k, v in cart.items()}
+
+    # Načtení všech produktů, které jsou v košíku
+    product_ids = cart.keys()
+    products = Product.objects.filter(id__in=product_ids)
+
+    # Vytvoření slovníku {id: product_object}
+    products_dict = {str(product.id): product for product in products}
+
+    # Výpočet celkové ceny s podrobným výpisem pro ladění
+    total_price = 0
+    for product_id, quantity in cart.items():
+        product = products_dict.get(str(product_id))
+        if product:
+            item_total = product.price * quantity
+            total_price += item_total
+            print(
+                f"Product {product.title} (ID: {product.id}) - Quantity: {quantity}, Price: {product.price}, Total: {item_total}")
+        else:
+            print(f"Product with ID {product_id} not found!")
+
+    print("Total price:", total_price)  # Debug: Tiskne celkovou cenu do konzole
+
+    return render(request, "checkout.html", {
+        "cart": cart,
+        "products": products_dict,
+        "total_price": total_price  # Posíláme do šablony
+    })
 
 def cart_add_quantity(request, product_id):
     """Přidání 1 kusu produktu do košíku."""

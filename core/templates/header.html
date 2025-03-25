@@ -6,16 +6,12 @@
 
     <!-- Logo -->
     <a class="navbar-brand" href="{% url 'home' %}">
-      <img src="{{ MEDIA_URL }}Flodeko - pokus1.webp" alt="FloDeko Logo" class="logo">
+      <img src="{{ MEDIA_URL }}FloDeko_logo.svg" alt="FloDeko Logo" class="logo">
     </a>
 
     <!-- Navigační menu -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav d-flex flex-row ms-auto">
         <li class="nav-item">
           <a class="nav-link text-light" href="{% url 'home' %}">Home</a>
         </li>
@@ -28,9 +24,9 @@
       </ul>
     </div>
 
-        <!-- Odkaz na košík jako tlačítko -->
+    <!-- Odkaz na košík jako tlačítko -->
     <a href="{% url 'cart' %}" class="btn btn-outline-light position-relative ms-3">
-      <img src="{% static 'images/shopping_cart.png' %}" alt="Košík" width="150" height="100">
+      <img src="{% static 'images/shopping_cart.png' %}" alt="Košík" width="40" height="40">
       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
         {{ cart.items.count }}
       </span>

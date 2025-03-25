@@ -9,4 +9,5 @@ urlpatterns = [
     path('remove_quantity/<int:product_id>/', views.cart_remove_quantity, name='cart_remove_quantity'),  # Odebrání 1 kusu
     path('debug/', views.debug_cart, name='debug_cart'),
     path('checkout/', views.checkout, name='checkout'),
+
 ]

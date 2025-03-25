@@ -4,13 +4,21 @@ register = template.Library()
 
 @register.filter
 def multiply(value, arg):
-    """Vlastní filtr pro násobení dvou čísel"""
+    """Vrátí násobek hodnoty a argumentu."""
     try:
         return float(value) * float(arg)
     except (ValueError, TypeError):
         return 0
 
+@register.filter
+def dict_key(dictionary, key):
+    """Vrátí hodnotu z dictionary podle klíče."""
+    try:
+        return dictionary.get(str(key), None)
+    except AttributeError:
+        return None
 
 @register.filter
-def get_item(dictionary, key):
-    return dictionary.get(int(key))  # Zajištění přístupu k hodnotě produktu pomocí id
+def attr(obj, attr_name):
+    """Vrátí hodnotu atributu objektu."""
+    return getattr(obj, attr_name, None)
