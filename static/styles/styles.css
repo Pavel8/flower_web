@@ -80,3 +80,25 @@ body {
 .btn-primary:hover {
     background-color: #0056b3 !important;
 }
+div#test {
+background-color: red;
+}
+
+.main-image-box img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.gallery-box img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.info-box {
+    background-color: #f9f9f9;
+}
+
+.description-box {
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}

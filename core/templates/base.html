@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FloDeko{% endblock %}</title>
 
+ <!-- Bootstrap -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 
     <!-- Vlastní styly -->
     {% load static %}
@@ -20,6 +22,8 @@
         {% block content %}{% endblock %}
     </div>
 
+ <!-- Bootstrap JS (volitelně, pokud použiješ interaktivní prvky) -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

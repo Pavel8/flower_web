@@ -28,7 +28,7 @@
         {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <!-- Proklik na detail produktu -->
+                    <!-- Odkaz na detail produktu, celý blok kromě tlačítka pro přidání do košíku -->
                     <a href="{% url 'product_detail' product.id %}" class="stretched-link"></a>
 
                     {% if product.main_image %}
@@ -57,7 +57,7 @@
                         </p>
 
                         <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
-                        <form method="post" action="{% url 'cart_add' product.id %}">
+                        <form method="post" action="{% url 'cart_add' product.id %}" class="d-inline">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
                         </form>

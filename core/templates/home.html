@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FloDeko - {% block title %}Květinová výzdoba{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+     <style>
+
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
    <style>
@@ -38,6 +42,7 @@
         }
     </style>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <body>
 
     {% include "header.html" %}
