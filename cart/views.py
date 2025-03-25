@@ -8,23 +8,25 @@ from products.models import Product
 
 from django.shortcuts import redirect, get_object_or_404
 from products.models.product import Product
-from django.http import JsonResponse
+from django.http import HttpResponse
 import json
 
 def cart_add(request, product_id):
-    """Přidání produktu do košíku."""
-    # Zjistit, jestli je uživatel přihlášen
+    """Přidání produktu do košíku bez zprávy."""
     is_authenticated = request.user.is_authenticated
 
     # Načíst košík (session pro přihlášené, cookies pro anonymní)
     if is_authenticated:
         cart = request.session.get("cart", {})
     else:
-        cart = request.COOKIES.get("cart", "{}")  # U cookies je to string, nutné převést!
+        cart = request.COOKIES.get("cart", "{}")
         try:
-            cart = json.loads(cart)  # Převod z JSON
+            cart = json.loads(cart)
         except json.JSONDecodeError:
             cart = {}
+
+        # Ujisti se, že product_id je řetězec
+    product_id = str(product_id)
 
     # Přidání produktu do košíku
     if product_id in cart:
@@ -35,15 +37,13 @@ def cart_add(request, product_id):
     # Uložit zpět
     if is_authenticated:
         request.session["cart"] = cart
-        request.session.modified = True  # Uložit session
+        request.session.modified = True
     else:
-        response = JsonResponse({'message': 'Produkt přidán do košíku'})
+        response = HttpResponse(status=204)  # Odpověď bez obsahu
         response.set_cookie("cart", json.dumps(cart), max_age=7 * 24 * 60 * 60, secure=False, httponly=False)
         return response
 
-    # Pokud je uživatel přihlášen, můžete vrátit JsonResponse
-    return JsonResponse({'message': 'Produkt přidán do košíku'})
-
+    return HttpResponse(status=204)  # Odpověď pro přihlášené uživatele
 
 
 def cart_detail(request):

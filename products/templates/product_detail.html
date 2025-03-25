@@ -64,8 +64,11 @@
                 Barva:
                 <span class="color-badge" style="background-color: {{ product.color }};"></span>
             </p>
-
-            <button class="btn btn-primary mt-3">Přidat do košíku</button>
+            <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
+            <form method="post" action="{% url 'cart_add' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
+            </form>
         </div>
     </div>
 
