@@ -15,17 +15,10 @@ def cart_add(request, product_id):
     """Přidání produktu do košíku bez zprávy."""
     is_authenticated = request.user.is_authenticated
 
-    # Načíst košík (session pro přihlášené, cookies pro anonymní)
-    if is_authenticated:
-        cart = request.session.get("cart", {})
-    else:
-        cart = request.COOKIES.get("cart", "{}")
-        try:
-            cart = json.loads(cart)
-        except json.JSONDecodeError:
-            cart = {}
+    # Načíst košík (session pro přihlášené, session pro anonymní)
+    cart = request.session.get("cart", {})
 
-        # Ujisti se, že product_id je řetězec
+    # Ujisti se, že product_id je řetězec
     product_id = str(product_id)
 
     # Přidání produktu do košíku
@@ -34,16 +27,12 @@ def cart_add(request, product_id):
     else:
         cart[product_id] = 1  # Přidejte první kus
 
-    # Uložit zpět
-    if is_authenticated:
-        request.session["cart"] = cart
-        request.session.modified = True
-    else:
-        response = HttpResponse(status=204)  # Odpověď bez obsahu
-        response.set_cookie("cart", json.dumps(cart), max_age=7 * 24 * 60 * 60, secure=False, httponly=False)
-        return response
+    # Uložit zpět do session (bez ohledu na to, jestli je uživatel přihlášený nebo ne)
+    request.session["cart"] = cart
+    request.session.modified = True
 
-    return HttpResponse(status=204)  # Odpověď pro přihlášené uživatele
+    return HttpResponse(status=204)  # Odpověď pro přihlášené i nepřihlášené uživatele
+
 
 
 def cart_detail(request):

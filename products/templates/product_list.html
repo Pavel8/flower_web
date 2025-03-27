@@ -28,41 +28,43 @@
         {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <!-- Odkaz na detail produktu, celý blok kromě tlačítka pro přidání do košíku -->
-                    <a href="{% url 'product_detail' product.id %}" class="stretched-link"></a>
+    {% if product.main_image %}
+        <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="card-img-top">
+    {% endif %}
+    <div class="card-body">
+        <h3 class="card-title">
+            <a href="{% url 'product_detail' product.id %}" class="text-dark text-decoration-none">
+            {{ product.title }}
+            </a>
+        </h3>
 
-                    {% if product.main_image %}
-                        <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="card-img-top">
-                    {% endif %}
+        <p class="card-text">Typ: {{ product.type.name }}</p>
+        <p class="card-text">
+            Cena:
+            {% if product.discount %}
+                <span class="text-muted text-decoration-line-through">{{ product.price }} Kč</span>
+                <span class="text-danger fw-bold">{{ product.discounted_price }} Kč</span>
+            {% else %}
+                <span class="fw-bold">{{ product.price }} Kč</span>
+            {% endif %}
+        </p>
+        <p class="card-text">
+            Příležitosti:
+            {% for occ in product.occasion.all %}
+                <span class="badge bg-info text-dark">{{ occ.name }}</span>
+            {% empty %}
+                -
+            {% endfor %}
+        </p>
 
-                    <div class="card-body">
-                        <h3 class="card-title">{{ product.title }}</h3>
-                        <p class="card-text">Typ: {{ product.type.name }}</p>
-                        <p class="card-text">
-                            Cena:
-                            {% if product.discount %}
-                                <span class="text-muted text-decoration-line-through">{{ product.price }} Kč</span>
-                                <span class="text-danger fw-bold">{{ product.discounted_price }} Kč</span>
-                            {% else %}
-                                <span class="fw-bold">{{ product.price }} Kč</span>
-                            {% endif %}
-                        </p>
-                        <p class="card-text">
-                            Příležitosti:
-                            {% for occ in product.occasion.all %}
-                                <span class="badge bg-info text-dark">{{ occ.name }}</span>
-                            {% empty %}
-                                -
-                            {% endfor %}
-                        </p>
+        <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
+        <form method="post" action="{% url 'cart_add' product.id %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
+        </form>
+    </div>
+</div>
 
-                        <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
-                        <form method="post" action="{% url 'cart_add' product.id %}" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
-                        </form>
-                    </div>
-                </div>
             </div>
         {% empty %}
             <p class="text-center">Žádné produkty nenalezeny.</p>
