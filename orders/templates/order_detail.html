@@ -2,30 +2,33 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Objednávka č. {{ order.id }}</h1>
-    <p><strong>Jméno:</strong> {{ order.full_name }}</p>
-    <p><strong>Email:</strong> {{ order.email }}</p>
-    <p><strong>Telefon:</strong> {{ order.phone }}</p>
+    <h1 class="text-center">Detail objednávky #{{ order.id }}</h1>
+
+    <h3>Údaje o zákazníkovi</h3>
+    <p><strong>Jméno a příjmení:</strong> {{ order.full_name }}</p>
+    <p><strong>E-mail:</strong> {{ order.email }}</p>
     <p><strong>Adresa:</strong> {{ order.address }}</p>
-    <p><strong>Stav objednávky:</strong> {{ order.status }}</p>
+    <p><strong>Telefon:</strong> {{ order.phone }}</p>
+    <p><strong>Způsob platby:</strong> {{ order.get_payment_method_display }}</p>
+    <p><strong>Celková cena:</strong> {{ order.total_price }} Kč</p>
 
     <h3>Položky objednávky</h3>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Produkt</th>
                 <th>Množství</th>
                 <th>Cena</th>
-                <th>Celkem</th>
+                <th>Celková cena</th>
             </tr>
         </thead>
         <tbody>
             {% for item in order.items.all %}
             <tr>
-                <td>{{ item.product.title }}</td>
+                <td>{{ item.product.name }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price }} Kč</td>
-                <td>{{ item.price|floatformat:2 }} Kč</td>
+                <td>{{ item.price|multiply:item.quantity }} Kč</td>
             </tr>
             {% endfor %}
         </tbody>

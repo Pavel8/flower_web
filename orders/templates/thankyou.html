@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center">Děkujeme za vaši objednávku!</h1>
-    <p>Vaše objednávka byla úspěšně vytvořena. Očekávejte potvrzení e-mailem.</p>
+<div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="text-center">
+        <h1 class="display-4 text-success mb-4">Děkujeme za vaši objednávku!</h1>
+        <p class="lead mb-4">Vaše objednávka byla úspěšně vytvořena. Očekávejte potvrzení e-mailem.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Pokračovat v nakupování</a>
+    </div>
 </div>
 {% endblock %}

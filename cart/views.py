@@ -4,6 +4,7 @@ from products.models.product import Product
 from django.shortcuts import render
 from django.http import JsonResponse
 from products.models import Product
+from orders.models import Order, OrderItem
 
 
 from django.shortcuts import redirect, get_object_or_404
@@ -109,7 +110,7 @@ def cart_view(request):
 
 
 def checkout(request):
-    """Zobrazí obsah košíku na stránce checkout."""
+    """Zobrazí obsah košíku na stránce checkout a zpracuje objednávku."""
     cart = request.session.get("cart", {})
 
     # Ujisti se, že klíče v cart jsou stringy
@@ -122,19 +123,51 @@ def checkout(request):
     # Vytvoření slovníku {id: product_object}
     products_dict = {str(product.id): product for product in products}
 
-    # Výpočet celkové ceny s podrobným výpisem pro ladění
+    # Výpočet celkové ceny
     total_price = 0
     for product_id, quantity in cart.items():
         product = products_dict.get(str(product_id))
         if product:
             item_total = product.price * quantity
             total_price += item_total
-            print(
-                f"Product {product.title} (ID: {product.id}) - Quantity: {quantity}, Price: {product.price}, Total: {item_total}")
         else:
             print(f"Product with ID {product_id} not found!")
 
-    print("Total price:", total_price)  # Debug: Tiskne celkovou cenu do konzole
+    # Pokud je POST požadavek (odeslání objednávky), uložíme objednávku
+    if request.method == 'POST':
+        # Získání údajů o zákazníkovi z formuláře
+        customer_name = request.POST.get('name')
+        customer_email = request.POST.get('email')
+        customer_address = request.POST.get('address')
+        customer_phone = request.POST.get('phone')
+        payment_method = request.POST.get('payment_method')
+
+        # Vytvoření objednávky
+        order = Order.objects.create(
+            customer_name=customer_name,
+            customer_email=customer_email,
+            customer_address=customer_address,
+            customer_phone=customer_phone,
+            payment_method=payment_method,
+            total_price=total_price
+        )
+
+        # Uložení položek objednávky
+        for product_id, quantity in cart.items():
+            product = products_dict.get(str(product_id))
+            if product:
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                    total_price=product.price * quantity
+                )
+
+        # Vymazání košíku
+        request.session['cart'] = {}
+
+        # Přesměrování na stránku s poděkováním
+        return redirect('thank_you', order_id=order.id)
 
     return render(request, "checkout.html", {
         "cart": cart,

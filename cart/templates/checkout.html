@@ -18,27 +18,32 @@
             </thead>
             <tbody>
                 {% for product_id, quantity in cart.items %}
-                {% if product_id in products %}
-                <tr>
-                    <td>{{ products|default_if_none:''|dict_key:product_id|default_if_none:'' }}</td>
-                    <td>{{ quantity }}</td>
-                    <td>{{ products|default_if_none:''|dict_key:product_id|default_if_none:''|attr:'price' }} Kč</td>
-                    <td>{{ products|default_if_none:''|dict_key:product_id|default_if_none:''|attr:'price'|multiply:quantity }} Kč</td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4" class="text-center text-danger">Produkt s ID {{ product_id }} nebyl nalezen</td>
-                </tr>
-                {% endif %}
+                    {% with product=products|get_item:product_id %}
+                        {% if product %}
+                            <tr>
+                                <td>{{ product.title }}</td>
+                                <td>{{ quantity }}</td>
+                                <td>{{ product.price }} Kč</td>
+                                <td>{{ product.price|multiply:quantity }} Kč</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center text-danger">
+                                    Produkt s ID {{ product_id }} nebyl nalezen
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
                 {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">Košík je prázdný</td>
-                </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">Košík je prázdný</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         <div class="text-right">
-            <h4>Celková cena: {{ total_price|default:"Není k dispozici" }} Kč</h4>
+            <h4>Celková cena: {{ total_price }} Kč</h4>
         </div>
     </div>
 
@@ -46,10 +51,9 @@
         <h3>Údaje o zákazníkovi</h3>
         <form method="post" action="{% url 'create_order' %}" id="order-form">
             {% csrf_token %}
-
             <div class="mb-3">
-                <label for="name" class="form-label">Jméno a příjmení</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="full_name" class="form-label">Jméno a příjmení</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" required>
             </div>
 
             <div class="mb-3">

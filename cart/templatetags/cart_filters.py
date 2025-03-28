@@ -22,3 +22,9 @@ def dict_key(dictionary, key):
 def attr(obj, attr_name):
     """Vrátí hodnotu atributu objektu."""
     return getattr(obj, attr_name, None)
+
+@register.filter
+def get_item(dictionary, key):
+    if isinstance(dictionary, dict):
+        return dictionary.get(str(key), None)
+    return None
