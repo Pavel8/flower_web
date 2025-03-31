@@ -1,26 +1,28 @@
-{% extends 'base.html' %}
-
-{% block title %}Seznam služeb - FloDeko{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container">
     <h1 class="text-center mb-4">Naše služby</h1>
-
-    <div class="row">
+    <div class="row justify-content-center">
         {% for service in services %}
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
-                <img src="{{ service.image.url }}" alt="{{ service.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ service.name }}</h5>
-                    <p class="card-text">{{ service.description|truncatewords:20 }}</p>
-                    <p class="card-text"><strong>{{ service.price|floatformat:2 }} Kč</strong></p>
-                    <a href="{% url 'service_detail' service.id %}" class="btn btn-primary">Zjistit více</a>
+            <div class="col-md-5 m-2">
+                <div class="card shadow-lg">
+                    <a href="{% url 'service_detail' service.id %}">
+                        <img src="{{ service.main_image.url }}" class="card-img-top service-image" alt="{{ service.title }}">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold fs-4">{{ service.title }}</h5>
+                        <ul class="text-start list-unstyled">
+                            {% for line in service.short_description.splitlines %}
+                                <li>• {{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{% url 'service_detail' service.id %}" class="btn btn-primary">Více informací</a>
+                    </div>
                 </div>
             </div>
-        </div>
         {% empty %}
-        <p class="text-center">Žádné služby nejsou k dispozici.</p>
+            <p class="text-center">Žádné služby nejsou k dispozici.</p>
         {% endfor %}
     </div>
 </div>

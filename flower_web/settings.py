@@ -43,10 +43,13 @@ INSTALLED_APPS = [
     'services',
     'cart',
     'orders',
+    'ckeditor',
 ]
 
 # Definování základní šablony pro statické soubory
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Nastavení pro přihlašování a odhlašování
 LOGIN_REDIRECT_URL = 'home'
@@ -146,3 +149,4 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Ukládání do databá
 SESSION_COOKIE_AGE = 86400  # 24 hodin
 SESSION_SAVE_EVERY_REQUEST = True  # Obnovuje session při každém requestu
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Nevyprší při zavření prohlížeče
+

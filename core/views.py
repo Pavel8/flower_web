@@ -8,3 +8,6 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+def business_terms_conditions(request):
+    return render(request, 'services/business_terms_conditions.html')

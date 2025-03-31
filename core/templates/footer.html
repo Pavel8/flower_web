@@ -1,0 +1,39 @@
+{% load static %}
+
+<footer class="footer mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Kontakt -->
+            <div class="col-md-4 text-center">
+                <h5>Kontakt</h5>
+                <p>Email: <a href="mailto:info@flodeko.cz">info@flodeko.cz</a></p>
+                <p>Telefon: <a href="tel:+420123456789">+420 123 456 789</a></p>
+                <p>Adresa: Květinová 12, Praha</p>
+            </div>
+
+            <!-- Rychlé odkazy -->
+            <div class="col-md-4 text-center">
+                <h5>Rychlé odkazy</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'about' %}">O nás</a></li>
+                    <li><a href="{% url 'contact' %}">Kontakt</a></li>
+                    <li><a href="{% url 'business_terms_conditions' %}">Obchodní podmínky</a></li>
+                </ul>
+            </div>
+
+            <!-- Sociální sítě -->
+            <div class="col-md-4 text-center">
+                <h5>Sledujte nás</h5>
+                <a href="https://facebook.com" target="_blank">
+                    <img src="{% static 'images/facebook.svg' %}" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://instagram.com" target="_blank">
+                    <img src="{% static 'images/instagram.svg' %}" alt="Instagram" class="social-icon">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <p class="small">&copy; 2025 FloDeko. Všechna práva vyhrazena.</p>
+    </div>
+</footer>

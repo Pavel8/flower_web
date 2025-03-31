@@ -102,3 +102,116 @@ background-color: red;
     background-color: #f9f9f9;
     margin-top: 20px;
 }
+
+.card {
+    max-width: 500px !important;
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+    padding: 30px !important;
+    text-align: center !important;
+}
+
+.thankyou-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Celá výška obrazovky */
+    background-color: #f4f8f3; /* Jemný přírodní tón */
+}
+
+.thankyou-box {
+    max-width: 500px;
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Silnější stín */
+    border: 2px solid #6b8e23; /* Olivově zelený rámeček */
+}
+
+.thankyou-box h1 {
+    color: #4E5B31; /* Tmavší zelená */
+    font-weight: bold;
+}
+
+.thankyou-box p {
+    font-size: 18px;
+    color: #333;
+}
+
+.thankyou-box .btn-primary {
+    background-color: #6b8e23;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+}
+
+.thankyou-box .btn-primary:hover {
+    background-color: #8FBC8F;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.service-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body {
+    flex-grow: 1;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.list-unstyled li {
+    text-align: left;
+}
+
+.footer {
+    background-color: #D6E6D0;
+    padding: 30px 0;
+    color: #2E2E2E;
+    font-size: 14px;
+}
+
+.footer h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.footer a {
+    color: #2E2E2E;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #6B8E23;
+    text-decoration: underline;
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    transition: transform 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}

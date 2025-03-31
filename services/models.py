@@ -1,3 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
+class Service(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Název služby")
+    main_image = models.ImageField(upload_to="services/main/", verbose_name="Hlavní obrázek")
+    image = models.ImageField(upload_to="services/", verbose_name="Vedlejší obrázek", blank=True, null=True)
+    short_description = models.TextField(max_length=300, verbose_name="Krátký popis")  # max 300 znaků
+    description = models. RichTextField(verbose_name="Detailní popis")  # delší text
+
+    def __str__(self):
+        return self.title
