@@ -1,27 +1,27 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FloDeko - {% block title %}Květinová výzdoba{% endblock %}</title>
+    <title>FloDeko - Květinová výzdoba</title>
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-     <style>
 
-    {% load static %}
+    <!-- Vlastní CSS -->
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
-   <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-        }
+
+    <style>
         .content-wrapper {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 80vh;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
         }
+
         .content-box {
             width: 45%;
             text-align: center;
@@ -31,32 +31,67 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
+
         .content-box:hover {
             transform: translateY(-5px);
         }
+
         .content-box a {
             text-decoration: none;
-            color: #7c9473; /* Přírodní zelená */
+            color: #7c9473;
             font-size: 1.5rem;
             font-weight: bold;
         }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex-grow: 1;
+        }
     </style>
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <body>
+
+<div class="page-wrapper">
 
     {% include "header.html" %}
 
-    <div class="container">
-        <div class="content-wrapper row">
-            <div class="col-md-5 content-box me-3">
-                <a href="{% url 'product_list' %}">🌸 Nabízené produkty</a>
+    <main>
+        <div class="container mt-4">
+            <div class="row mb-2">
+                <div class="col-md-8 mx-auto text-center">
+                    <h2 class="mb-3" style="color: #7c9473;">Květinová radost z Brna</h2>
+                    <p class="lead">
+                        Ručně vytvářené květinové dekorace od srdce, s láskou a letitou zkušeností.
+                    </p>
+                    <p>
+                        Proměnila jsem svůj byt v květinový ateliér.
+                        Každý výrobek vzniká v Brně s péčí a pozorností, jakou si přírodní krása zaslouží.
+                    </p>
+                </div>
             </div>
-            <div class="col-md-5 content-box">
-                <a href="{% url 'service_list' %}">🎨 Nabízené služby</a>
+
+            <div class="content-wrapper row justify-content-center">
+                <div class="col-md-5 content-box me-3">
+                    <a href="{% url 'product_list' %}">🌸 Nabízené produkty</a>
+                </div>
+                <div class="col-md-5 content-box">
+                    <a href="{% url 'service_list' %}">🎨 Nabízené služby</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-   </body>
+    {% include "footer.html" %}
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>

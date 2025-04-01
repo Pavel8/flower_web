@@ -25,7 +25,8 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('cart/', include('cart.urls')),
     path('orders/', include('orders.urls')),
-    path('', include('core.urls')),  # Domovská stránka
+    path('', include('core.urls')),
+    path("staff/", include("staffauth.urls")),
 
 ]
 

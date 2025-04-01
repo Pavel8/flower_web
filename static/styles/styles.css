@@ -1,9 +1,16 @@
 /* Globální styly */
-body {
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     font-family: 'Arial', sans-serif;
     background-color: #F4F8F3 !important; /* Světle zelená pro jemný přírodní tón */
     color: #2E2E2E !important; /* Tmavá šedá pro text */
     line-height: 1.6 !important;
+}
+
+.main-content {
+    flex: 1;
 }
 
 /* Navigace */
@@ -80,8 +87,9 @@ body {
 .btn-primary:hover {
     background-color: #0056b3 !important;
 }
+
 div#test {
-background-color: red;
+    background-color: red;
 }
 
 .main-image-box img {
@@ -89,7 +97,7 @@ background-color: red;
     border-radius: 8px;
 }
 
-.gallery-box img {
+gallery-box img {
     width: 100%;
     border-radius: 8px;
 }
@@ -98,7 +106,7 @@ background-color: red;
     background-color: #f9f9f9;
 }
 
-.description-box {
+description-box {
     background-color: #f9f9f9;
     margin-top: 20px;
 }
@@ -173,9 +181,12 @@ background-color: red;
 }
 
 .card-title {
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     margin-bottom: 15px;
     text-transform: uppercase;
+    font-size: 20px;
+    text-align: center;
 }
 
 .list-unstyled li {
@@ -187,6 +198,7 @@ background-color: red;
     padding: 30px 0;
     color: #2E2E2E;
     font-size: 14px;
+    margin-top: auto;
 }
 
 .footer h5 {
@@ -214,4 +226,81 @@ background-color: red;
 
 .social-icon:hover {
     transform: scale(1.1);
+}
+
+.navbar-nav .nav-item:not(:last-child) {
+    border-right: 1px solid #2E2E2E;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+/* Styl pro navigační menu */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+/* Styl pro jednotlivé položky menu */
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    position: relative;
+}
+/* Styl pro obalující div kolem odkazu */
+.nav-link-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Styl pro odkazy v menu */
+.navbar-nav .nav-link {
+    font-weight: bold; /* Tučný text */
+    text-transform: uppercase; /* Velká písmena */
+    color: #2E2E2E; /* Tmavě šedá barva */
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Svislé oddělovače mezi položkami */
+.navbar-nav .nav-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    background-color: #2E2E2E; /* Tmavě šedá barva */
+}
+
+/* Změna barvy odkazu po najetí myší */
+.navbar-nav .nav-link:hover {
+    color: #006400; /* Tmavě zelená barva */
+    background-color: #f0f0f0; /* Světle šedé pozadí */
+}
+
+/* Wrapper zajistí, že footer je vždy dole */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Hlavní obsah roste dle potřeby */
+main {
+    flex: 1;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

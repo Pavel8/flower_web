@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Zaměstnanecký panel</h2>
+
+    <div class="row justify-content-center">
+        <!-- Odkaz na objednávky -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📦 Objednávky</h5>
+                    <p class="card-text">Zobrazit a spravovat přijaté objednávky.</p>
+                    <a href="{% url 'order_list' %}" class="btn btn-primary">Zobrazit objednávky</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Odkaz na produkty -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🌸 Produkty</h5>
+                    <p class="card-text">Seznam produktů k úpravě nebo přidání nových.</p>
+                    <a href="{% url 'staff_product_list' %}" class="btn btn-primary">Správa produktů</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Odkaz na služby -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🎨 Služby</h5>
+                    <p class="card-text">Uprav nebo přidej květinové služby.</p>
+                    <a href="{% url 'staff_service_list' %}" class="btn btn-primary">Správa služeb</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

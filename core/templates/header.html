@@ -2,37 +2,50 @@
 <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 
 <header class="navbar navbar-expand-lg bg-primary">
-  <div class="container d-flex align-items-center justify-content-between">
+  <div class="container">
 
-    <!-- Logo -->
-    <a class="navbar-brand" href="{% url 'home' %}">
-      <img src="{{ MEDIA_URL }}FloDeko_logo.svg" alt="FloDeko Logo" class="logo">
-    </a>
+    <!-- Logo a navigační odkazy nalevo -->
+    <div class="d-flex">
+      <!-- Logo -->
+      <a class="navbar-brand me-3" href="{% url 'home' %}">
+        <img src="{% static 'images/FloDeko_logo.svg' %}" alt="FloDeko Logo" class="logo" style="height: 85px;">
+      </a>
 
-    <!-- Navigační menu -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav d-flex flex-row ms-auto">
-        <li class="nav-item">
-          <a class="nav-link text-light" href="{% url 'home' %}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="{% url 'about' %}">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="{% url 'product_list' %}">Seznam produktů</a>
-        </li>
+      <!-- Navigační menu -->
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <div class="nav-link-wrapper">
+                  <a class="nav-link" href="{% url 'product_list' %}">Květinové výrobky</a>
+              </div>
+          </li>
+          <li class="nav-item">
+              <div class="nav-link-wrapper">
+                  <a class="nav-link" href="{% url 'service_list' %}">Květinové služby</a>
+              </div>
+          </li>
+          <li class="nav-item">
+              <div class="nav-link-wrapper">
+                  <a class="nav-link" href="{% url 'contact' %}">Kontakt</a>
+              </div>
+          </li>
       </ul>
+
     </div>
 
-    <!-- Odkaz na košík jako tlačítko -->
-    <div id="test" class="btn btn-outline-light position-relative ms-3 tc">
-    <a href="{% url 'cart' %}" class="tc">
-      <img src="{% static 'images/shopping_cart.png' %}" alt="Košík" width="40" height="40">
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        {{ cart.items.count }}
-      </span>
-    </a>
-      </div>
+    <!-- Tlačítko pro mobilní zobrazení -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Odkaz na košík zarovnaný napravo -->
+    <div class="ms-auto">
+      <a href="{% url 'cart' %}" class="btn btn-outline-light position-relative">
+        <img src="{% static 'images/shopping_cart.png' %}" alt="Košík" width="40" height="40">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ cart.items.count }}
+        </span>
+      </a>
+    </div>
 
   </div>
 </header>

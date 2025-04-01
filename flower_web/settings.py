@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'services',
     'cart',
     'orders',
-    'ckeditor',
+    'staffauth',
 ]
 
 # Definování základní šablony pro statické soubory
@@ -142,8 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
 # Pro mediální soubory (obrázky nahrané uživateli)
-MEDIA_URL = '/media/'  # URL, která bude použita pro přístup k souborům
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Cesta na disku, kam se soubory ukládají
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Ukládání do databáze
 SESSION_COOKIE_AGE = 86400  # 24 hodin

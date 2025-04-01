@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <h2 class="fw-bold">{{ service.title }}</h2>
             <p class="text-muted">{{ service.short_description }}</p>
-            <p>{{ service.description }}</p>
+            <p>{{ service.description|safe }}</p>
 
             <!-- Formulář pro poptávku -->
             <form method="post">
