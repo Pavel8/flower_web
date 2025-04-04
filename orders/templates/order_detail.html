@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
+{% load cart_filters %}
 
 {% block content %}
 <div class="container mt-4">
     <h1 class="text-center">Detail objednávky #{{ order.id }}</h1>
 
-    <h3>Údaje o zákazníkovi</h3>
+    <!-- Nadpis + tlačítko zpět -->
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+        <h3 class="mb-0">Údaje o zákazníkovi</h3>
+        <a href="{% url 'order_list' %}" class="btn btn-outline-secondary">
+            &larr; Zpět
+        </a>
+    </div>
+
     <p><strong>Jméno a příjmení:</strong> {{ order.full_name }}</p>
     <p><strong>E-mail:</strong> {{ order.email }}</p>
     <p><strong>Adresa:</strong> {{ order.address }}</p>
@@ -12,7 +20,7 @@
     <p><strong>Způsob platby:</strong> {{ order.get_payment_method_display }}</p>
     <p><strong>Celková cena:</strong> {{ order.total_price }} Kč</p>
 
-    <h3>Položky objednávky</h3>
+    <h3 class="mt-5">Položky objednávky</h3>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -25,7 +33,7 @@
         <tbody>
             {% for item in order.items.all %}
             <tr>
-                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.title }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price }} Kč</td>
                 <td>{{ item.price|multiply:item.quantity }} Kč</td>
@@ -33,5 +41,27 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <!-- Formulář pro změnu stavu -->
+    <div class="mt-4 mb-5">
+        <h3>Změnit stav objednávky</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <select name="status" class="form-select">
+                        {% for s in all_statuses %}
+                            <option value="{{ s.id }}" {% if order.status.id == s.id %}selected{% endif %}>
+                                {{ s.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Uložit změnu</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

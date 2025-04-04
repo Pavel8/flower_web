@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Seznam květinových služeb (pouze pro zaměstnance)</h2>
+    <ul class="list-group">
+        {% for service in services %}
+            <li class="list-group-item">
+                <strong>{{ service.title }}</strong><br>
+                {{ service.short_description }}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">Žádné služby nebyly nalezeny.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

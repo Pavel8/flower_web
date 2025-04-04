@@ -85,8 +85,18 @@ def order_list(request):
 
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    items = order.items.all()  # Načteme všechny položky objednávky
-    return render(request, 'order_detail.html', {'order': order, 'items': items})
+    all_statuses = OrderStatus.objects.all()
 
+    if request.method == 'POST':
+        new_status_id = request.POST.get('status')
+        new_status = OrderStatus.objects.get(id=new_status_id)
+        order.status = new_status
+        order.save()
+        return redirect('order_detail', order_id=order.id)
+
+    return render(request, 'order_detail.html', {
+        'order': order,
+        'all_statuses': all_statuses
+    })
 def thankyou(request):
     return render(request, 'thankyou.html')
