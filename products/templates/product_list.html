@@ -1,74 +1,75 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center">Nabízené produkty</h1>
-
-    <!-- FILTRY -->
-    <div class="filters mb-4">
-        <h3>Filtrovat podle příležitosti</h3>
-        <div class="btn-group">
+<div class="d-flex" style="min-height: 80vh;">
+    <!-- Levý panel s filtry -->
+    <aside class="bg-light border-end p-4" style="width: 250px; position: sticky; top: 70px; height: calc(100vh - 70px); overflow-y: auto;">
+        <h5>Filtrovat podle příležitosti</h5>
+        <div class="btn-group-vertical w-100 mb-4">
+            <a href="{% url 'product_list' %}" class="btn btn-outline-primary {% if not request.GET.occasion %}active{% endif %}">Vše</a>
             {% for occasion in occasions %}
-                <a href="?occasion={{ occasion.id }}" class="btn btn-primary">{{ occasion.name }}</a>
+                <a href="?occasion={{ occasion.id }}" class="btn btn-outline-primary {% if request.GET.occasion == occasion.id|stringformat:"s" %}active{% endif %}">
+                    {{ occasion.name }}
+                </a>
             {% endfor %}
         </div>
-    </div>
 
-    <div class="filters mb-4">
-        <h3>Filtrovat podle typu</h3>
-        <div class="btn-group">
+        <h5>Filtrovat podle typu</h5>
+        <div class="btn-group-vertical w-100">
+            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary {% if not request.GET.type %}active{% endif %}">Vše</a>
             {% for type in types %}
-                <a href="?type={{ type.id }}" class="btn btn-secondary">{{ type.name }}</a>
+                <a href="?type={{ type.id }}" class="btn btn-outline-secondary {% if request.GET.type == type.id|stringformat:"s" %}active{% endif %}">
+                    {{ type.title }}
+                </a>
             {% endfor %}
         </div>
-    </div>
+    </aside>
 
-    <!-- SEZNAM PRODUKTŮ -->
-    <div class="row">
-        {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-    {% if product.main_image %}
-        <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="card-img-top">
-    {% endif %}
-    <div class="card-body">
-        <h3 class="card-title">
-            <a href="{% url 'product_detail' product.id %}" class="text-dark text-decoration-none">
-            {{ product.title }}
-            </a>
-        </h3>
+    <!-- Pravý panel s produkty -->
+    <main class="flex-grow-1 p-4">
+        <h1 class="mb-4 text-center">Nabízené produkty</h1>
 
-        <p class="card-text">Typ: {{ product.type.name }}</p>
-        <p class="card-text">
-            Cena:
-            {% if product.discount %}
-                <span class="text-muted text-decoration-line-through">{{ product.price }} Kč</span>
-                <span class="text-danger fw-bold">{{ product.discounted_price }} Kč</span>
-            {% else %}
-                <span class="fw-bold">{{ product.price }} Kč</span>
-            {% endif %}
-        </p>
-        <p class="card-text">
-            Příležitosti:
-            {% for occ in product.occasion.all %}
-                <span class="badge bg-info text-dark">{{ occ.name }}</span>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        {% if product.main_image %}
+                            <img src="{{ product.main_image.url }}" alt="{{ product.title }}" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title">
+                                <a href="{% url 'product_detail' product.id %}" class="text-dark text-decoration-none">
+                                    {{ product.title }}
+                                </a>
+                            </h3>
+                            <p class="card-text">Typ: {{ product.type.title }}</p>
+                            <p class="card-text">
+                                Cena:
+                                {% if product.discount %}
+                                    <span class="text-muted text-decoration-line-through">{{ product.price }} Kč</span>
+                                    <span class="text-danger fw-bold">{{ product.discounted_price }} Kč</span>
+                                {% else %}
+                                    <span class="fw-bold">{{ product.price }} Kč</span>
+                                {% endif %}
+                            </p>
+                            <p class="card-text mb-2">
+                                Příležitosti:
+                                {% for occ in product.occasion.all %}
+                                    <span class="badge bg-info text-dark">{{ occ.name }}</span>
+                                {% empty %}
+                                    -
+                                {% endfor %}
+                            </p>
+                            <form method="post" action="{% url 'cart_add' product.id %}" class="mt-auto">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success w-100">Přidat do košíku</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             {% empty %}
-                -
+                <p class="text-center">Žádné produkty nenalezeny.</p>
             {% endfor %}
-        </p>
-
-        <!-- FORMULÁŘ PRO PŘIDÁNÍ DO KOŠÍKU -->
-        <form method="post" action="{% url 'cart_add' product.id %}" class="d-inline">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-success">Přidat do košíku</button>
-        </form>
-    </div>
-</div>
-
-            </div>
-        {% empty %}
-            <p class="text-center">Žádné produkty nenalezeny.</p>
-        {% endfor %}
-    </div>
+        </div>
+    </main>
 </div>
 {% endblock %}

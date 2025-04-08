@@ -72,24 +72,20 @@ html, body {
 }
 
 /* Tlačítka */
-.btn {
+.ms-auto .btn {
     padding: 0.75rem 1.5rem !important;
     border: none !important;
-    background-color: #007bff !important;
+    background-color: #FA8072 !important;
     color: #fff !important;
     font-size: 16px !important;
 }
 
 .btn-primary {
-    background-color: #007bff !important;
+    background-color: #FA8072 !important;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3 !important;
-}
-
-div#test {
-    background-color: red;
+    background-color: #e0665d !important;
 }
 
 .main-image-box img {
@@ -249,6 +245,7 @@ description-box {
     padding: 0 15px;
     position: relative;
 }
+
 /* Styl pro obalující div kolem odkazu */
 .nav-link-wrapper {
     display: flex;
@@ -303,4 +300,45 @@ main {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+
+/* Přepis barev tlačítek pro filtry (outline-primary a outline-secondary) */
+.btn-outline-primary {
+    border-color: #FA8072 !important;
+    color: #FA8072 !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary.active,
+.btn-outline-primary:active {
+    background-color: #FA8072 !important;
+    color: white !important;
+    border-color: #FA8072 !important;
+}
+
+/* Přepis pro btn-outline-secondary */
+.btn-outline-secondary {
+    border-color: #FA8072 !important;
+    color: #FA8072 !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary.active,
+.btn-outline-secondary:active {
+    background-color: #FA8072 !important;
+    color: white !important;
+    border-color: #FA8072 !important;
+}
+
+/* Přepis pro tlačítko „Přidat do košíku“ */
+.btn-outline-success {
+    border-color: #FA8072 !important;
+    color: #FA8072 !important;
+}
+
+.btn-outline-success:hover,
+.btn-outline-success:active {
+    background-color: #FA8072 !important;
+    color: white !important;
+    border-color: #FA8072 !important;
 }
